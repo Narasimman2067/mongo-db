@@ -23,6 +23,54 @@ db.movies.insert(
 ]
 )
 db.movies.insertMany( [
+  {
+    "id": "100",
+    "mentor": "RRR",
+    "poster": "https://englishtribuneimages.blob.core.windows.net/gallary-content/2021/6/Desk/2021_6$largeimg_977224513.JPG",
+    "rating": 8.8,
+    "summary": "RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",
+    "trailer": "https://www.youtube.com/embed/f_vbAtFSEc0"
+    },
+    {
+    "id": "101",
+    "mentor": "Iron man 2 ",
+    "poster": "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
+    "rating": 7,
+    "summary": "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
+    "trailer": "https://www.youtube.com/embed/wKtcmiifycU"
+    },
+    {
+    "id": "102",
+    "mentor": "No Country for Old Men ***",
+    "poster": "https://upload.wikimedia.org/wikipedia/en/8/8b/No_Country_for_Old_Men_poster.jpg",
+    "rating": 8.1,
+    "summary": "A hunter's life takes a drastic turn when he discovers two million dollars while strolling through the aftermath of a drug deal. He is then pursued by a psychopathic killer who wants the money.",
+    "trailer": "https://www.youtube.com/embed/38A__WT3-o0"
+    },
+    {
+      "id": "100",
+      "mentor": "RRR",
+      "poster": "https://englishtribuneimages.blob.core.windows.net/gallary-content/2021/6/Desk/2021_6$largeimg_977224513.JPG",
+      "rating": 8.8,
+      "summary": "RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",
+      "trailer": "https://www.youtube.com/embed/f_vbAtFSEc0"
+      },
+      {
+      "id": "101",
+      "mentor": "Iron man 2 ",
+      "poster": "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
+      "rating": 7,
+      "summary": "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
+      "trailer": "https://www.youtube.com/embed/wKtcmiifycU"
+      },
+      {
+      "id": "102",
+      "mentor": "No Country for Old Men ***",
+      "poster": "https://upload.wikimedia.org/wikipedia/en/8/8b/No_Country_for_Old_Men_poster.jpg",
+      "rating": 8.1,
+      "summary": "A hunter's life takes a drastic turn when he discovers two million dollars while strolling through the aftermath of a drug deal. He is then pursued by a psychopathic killer who wants the money.",
+      "trailer": "https://www.youtube.com/embed/38A__WT3-o0"
+      },
     {
     "id": "100",
     "mentor": "RRR",
@@ -152,4 +200,123 @@ db.movies.insertMany([
       "yearsOfExperience": "4"
     }
   ])
+
+// edit
+
+db.students.updateOne(
+  {
+    _id
+  },
+  {
+    "$set":{
+      "age":25
+    }
+  }
+)
+
+db.movies.updateOne(
+  {
+    _id: ObjectId("63eef5794bf726d0da18922c")
+  },
+  {
+    "$set":{
+      "mentor":"rajamouli"
+    }
+  }
+)
+db.movies.updateMany(
+  {
+    "mentor":"RRR"
+  },
+  {
+    "$set":{
+      "job":"full stack developer"
+    }
+  },
+  {
+    upsert:true
+  }
+)
+db.students.updateMany(
+  {
+    "name":"raja"
+  },
+  {
+    "$set":{
+      "job":"full stack developer"
+    }
+  },
+  {
+    upsert:true
+  }
+)
+
+// to get all the data like find but it is used for more items
+db.movies.find().toArray()
+// this is used to get the paaarticular data
+db.movies.find().forEach(function(movie){print(movie.mentor)})
+
+
+// aggregate
+
+db.movies.aggregate([
+
+  {
+
+    $lookup:{
+      from:"movies",
+      localField:"rating",
+      foreignField:"rating",
+      as:"student_type"
+    }
+  }
+])
+
+
+
+db.students.find({age:{$gt:20}})
+db.students.find({age:{$lt:23}})
+
+// for ascending order
+db.students.find({age:{$not:{$gt:20,$lt:23}}}).sort({age:1})
+
+// for descending order
+db.students.find({age:{$not:{$gt:20,$lt:23}}}).sort({age:-1})
+
+db.students.find({age:{$not:{$gt:20,$lt:23}}})
+
+db.students.find({},{name:1,batch:1})
+db.students.find({$or:[{Name:narasimman,mentor:RRR}]},)
+
+db.students.aggregate([
+
+{
+  $match:{batch :"B42WD"}
+},
+{
+  $group:{
+    _id:"$name",
+  }
+}
+
+])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
